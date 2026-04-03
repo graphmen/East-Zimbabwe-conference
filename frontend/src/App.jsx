@@ -230,14 +230,13 @@ function App() {
         {/* Fixed Footer */}
         <div className="p-4 bg-white border-t-2 border-[#F0F4F0] shrink-0">
           <div className="flex items-center gap-3 p-4 bg-[#F8FAF8] rounded-xl border-2 border-[#F0F4F0]">
-              <div className="w-10 h-10 rounded-lg bg-[#2E7D32] text-white flex items-center justify-center shrink-0 shadow-sm">
-                <LayoutDashboard size={20} />
+              <div className="w-10 h-10 rounded-lg bg-white overflow-hidden flex items-center justify-center shrink-0 shadow-sm border border-[#F0F4F0]">
+                <img src="/graphmen.png" alt="Graphmen Logo" className="w-full h-full object-contain" />
               </div>
               <div className="overflow-hidden">
-                <p className="text-[10px] font-black text-[#2E7D32] uppercase tracking-[0.2em] leading-tight truncate">Engine v7.0</p>
+                <p className="text-[10px] font-black text-[#1A2E1A] uppercase tracking-tight leading-tight truncate">Graphmen Geospatial</p>
                 <div className="flex items-center gap-1.5 mt-0.5">
-                    <div className="w-1.5 h-1.5 bg-[#F9A825] rounded-full animate-pulse"></div>
-                    <p className="text-[8px] text-[#1A2E1A]/40 font-black uppercase tracking-widest">Nominal Status</p>
+                    <p className="text-[10px] text-[#2E7D32] font-semibold tracking-widest">+263 773 807 928</p>
                 </div>
               </div>
           </div>
