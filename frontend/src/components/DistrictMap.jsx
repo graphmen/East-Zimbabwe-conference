@@ -26,9 +26,26 @@ function MapViewSetter({ bounds }) {
   const map = useMap();
   useEffect(() => {
     if (bounds) {
-      map.fitBounds(bounds, { padding: [100, 100], animate: true });
+      map.fitBounds(bounds, { padding: [50, 50], animate: true });
     }
   }, [bounds, map]);
+  return null;
+}
+
+function InitialFocus({ onFocus, geojsonData }) {
+  const map = useMap();
+  const [init, setInit] = useState(false);
+
+  useEffect(() => {
+    if (geojsonData?.features?.length > 0 && !init) {
+      const bounds = L.geoJSON(geojsonData).getBounds();
+      if (bounds.isValid()) {
+        onFocus(bounds);
+        setInit(true);
+      }
+    }
+  }, [geojsonData, init, onFocus]);
+
   return null;
 }
 
@@ -75,10 +92,10 @@ const DistrictMap = ({ districts, churches = [], selectedDistrict, showBoundarie
     const isSelected = selectedDistrict?.id === feature.properties?.id;
     return {
       fillColor: isSelected ? '#2E7D32' : '#8DA38D',
-      weight: isSelected ? 3 : 1.5,
+      weight: isSelected ? 4 : 3,
       opacity: 1,
-      color: isSelected ? '#F9A825' : '#D0E8D0',
-      fillOpacity: isSelected ? 0.2 : 0.05,
+      color: isSelected ? '#F9A825' : '#2563eb', // Mission Blue
+      fillOpacity: isSelected ? 0.3 : 0.1,
     };
   };
 
@@ -115,7 +132,10 @@ const DistrictMap = ({ districts, churches = [], selectedDistrict, showBoundarie
       },
       mouseout: (e) => {
         const l = e.target;
-        l.setStyle({ fillOpacity: 0.1, color: selectedDistrict?.id === feature.properties.id ? '#34d399' : '#2563eb' });
+        l.setStyle({ 
+          fillOpacity: selectedDistrict?.id === feature.properties.id ? 0.3 : 0.1, 
+          color: selectedDistrict?.id === feature.properties.id ? '#F9A825' : '#2563eb' 
+        });
       },
       click: (e) => {
         const d = districts.find(dist => dist.id === feature.properties.id);
@@ -233,7 +253,11 @@ const DistrictMap = ({ districts, churches = [], selectedDistrict, showBoundarie
           );
       })}
 
+      {/* Persistent Mission Region Focus Hook */}
       <MapViewSetter bounds={mapBounds} />
+      
+      {/* Automate Initial Perspective Focus */}
+      <InitialFocus onFocus={setMapBounds} geojsonData={geojsonData} />
     </MapContainer>
   );
 };
