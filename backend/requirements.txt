@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+supabase
+pandas
+openpyxl
+shapely
+scipy
+numpy
+pydantic
+python-dotenv
+geojson
+python-multipart
